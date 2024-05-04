@@ -3,6 +3,8 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, getToken } from "firebase/messaging";
 
 import { getDatabase,ref, set } from "firebase/database";
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBAl8mquQYHS4hVvWAS6HNR0W2_yBbJKl0",
   authDomain: "pushnotifications-f292f.firebaseapp.com",
@@ -26,6 +28,7 @@ export async function generateToken() {
     });
     console.log(token);
   }
+  
 }
 
 
@@ -41,7 +44,7 @@ function getCurrentDateTimeString() {
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
-
+// Store messages in the real time datbase
 export function writeMessage(body){
   let date = getCurrentDateTimeString();
   const db = getDatabase();
@@ -50,4 +53,33 @@ export function writeMessage(body){
   set(refrence,
     body
   );
+}
+
+
+//Retrieve messages from the real time databse
+import {  onValue } from "firebase/database";
+
+const db = getDatabase();
+const starCountRef = ref(db, 'message/');
+onValue(starCountRef, (snapshot) => {
+  const data = snapshot.val();
+  update(data);
+});
+
+function update(data){
+  let p = document.getElementsByName("list")[0];
+  while (p.firstChild) {
+    p.removeChild(p.firstChild);
+  }
+  for(const key in data){
+
+    const value = data[key];
+      
+      let listItem = document.createElement("li");
+      
+      listItem.textContent = value;
+
+      
+      p.appendChild(listItem);
+    }
 }
