@@ -92,7 +92,7 @@ function App() {
                 overflowY: "auto",
                 scrollbarWidth: "none",
                 boxShadow: "0 0 0.3rem white",
-                backgroundColor: "#0ca678",
+                backgroundColor: "#44aec2",
               }}
             >
               <ul name="list"></ul>
@@ -105,7 +105,7 @@ function App() {
               width: "100%",
               height: "15rem",
               boxShadow: "0 0 0.3rem white",
-              backgroundColor: "#0ca678",
+              backgroundColor: "#44aec2",
               padding: "0.8rem",
             }}
           >
@@ -166,7 +166,7 @@ function App() {
               width: "100%",
               height: "12rem",
               boxShadow: "0 0 0.3rem white",
-              backgroundColor: "#0ca678",
+              backgroundColor: "#44aec2",
               padding: "0.8rem",
             }}
           >
