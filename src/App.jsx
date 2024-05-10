@@ -90,7 +90,7 @@ function App() {
           <button onClick={getFiles}>Retrieve</button> 
           <br />
           <br />
-           <div name="Images">Testss</div>
+           <div name="Images">Test 12</div>
 
             <br />
             <br />
