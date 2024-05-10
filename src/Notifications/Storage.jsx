@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getStorage,ref ,uploadBytes,listAll ,getDownloadURL} from "firebase/storage";
+import { getStorage,ref ,uploadBytes,listAll ,getDownloadURL, deleteObject} from "firebase/storage";
 
 
 
@@ -32,12 +32,16 @@ export function getImages(id){
   return new Promise((resolve, reject) => {
     listAll(listRef)
       .then((res) => {
+   
         const urlsPromises = res.items.map((itemRef) => {
-          return getDownloadURL(itemRef);
+          return getDownloadURL(itemRef).then((url)=>{
+            return [url,itemRef];
+          });
         });
         Promise.all(urlsPromises)
           .then((urls) => {
             resolve(urls);
+            
           })
           .catch((error) => {
             reject(error);
@@ -48,4 +52,10 @@ export function getImages(id){
       });
   });
 
+}
+export function deleteImage(itemRef,element){
+  deleteObject(itemRef).then(()=>{
+    console.log("Item Deleted!");
+    element.remove();
+  }).catch((error)=>{console.log(error)})
 }

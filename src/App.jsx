@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { generateToken } from "./Notifications/Notif";
 import { onMessage } from "firebase/messaging";
 import { messaging,writeMessage } from "./Notifications/Notif";
-import {upload,getImages} from "./Notifications/Storage"
+import {upload,getImages, deleteImage} from "./Notifications/Storage"
 function App() {
 
   useEffect(() => {
@@ -37,7 +37,6 @@ function App() {
     container.innerHTML="";
     getImages(id)
     .then((urls) => {
-      console.log(urls);
       if(urls.length==0){
         container.innerHTML="- No Images exist for this user id";
       }
@@ -45,9 +44,16 @@ function App() {
 
         let li = document.createElement("li");
         let img = document.createElement("img");
-        img.setAttribute('src',urls[i]);
+        let btn = document.createElement("button");
+       
+        img.setAttribute('src',urls[i][0]);
         li.appendChild(img);
+        li.appendChild(btn);
         container.appendChild(li);
+        btn.style.backgroundColor = "blue";
+        btn.innerHTML = "Delete";
+     
+        btn.onclick =()=> deleteImage(urls[i][1],li);
 
       }
     })
